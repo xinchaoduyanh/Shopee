@@ -1,11 +1,17 @@
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from 'react-query'
 import { registerAccount } from 'src/apis/auth.api'
 import { omit } from 'lodash'
+import { isAxiosErrorUnprocessableEntity } from 'src/utils/utils'
+import { ErrorResponse } from 'src/types/utils.type'
+import { useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
+import Button from 'src/components/Button'
+import path from 'src/constants/path'
 
 // interface FormData {
 //   email: string
@@ -13,11 +19,14 @@ import { omit } from 'lodash'
 //   confirm_password: string
 // }
 type FormData = Schema
-export default function Login() {
+export default function Register() {
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
+    setError,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(schema)
@@ -29,10 +38,26 @@ export default function Login() {
     const body = omit(data, ['confirm_password'])
     registerAccountMutation.mutate(body, {
       onSuccess: (data) => {
-        console.log(data)
+        setIsAuthenticated(true)
+        navigate('/')
+        setProfile(data.data.data.user)
       },
       onError: (error) => {
-        console.log(error)
+        if (isAxiosErrorUnprocessableEntity<ErrorResponse<Omit<FormData, 'confirm_password'>>>(error)) {
+          const formError = error.response?.data.data
+          if (formError?.email) {
+            setError('email', {
+              message: formError.email,
+              type: 'Server'
+            })
+          }
+          if (formError?.password) {
+            setError('password', {
+              message: formError.password,
+              type: 'Server'
+            })
+          }
+        }
       }
     })
   })
@@ -105,14 +130,19 @@ export default function Login() {
                 <div className='mt-1 text-red-500 min-h-[1.25rem] text-sm'>{errors.confirm_password?.message}</div>
               </div> */}
               <div className='mt-6'>
-                <button className='w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'>
-                  Đăng kí
-                </button>
+                <Button
+                  isLoading={registerAccountMutation.isLoading}
+                  disabled={registerAccountMutation.isLoading}
+                  type='submit'
+                  className='flex justify-center items-center w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'
+                >
+                  Đăng nhập
+                </Button>
               </div>
 
               <div className='flex item-center justify-center mt-5'>
                 <div className='text-slate-400'> Bạn đã có tài khoản chưa?</div>
-                <Link className='text-red-400 ml-1' to='/Login'>
+                <Link className='text-red-400 ml-1' to={path.login}>
                   Đăng nhập
                 </Link>
               </div>

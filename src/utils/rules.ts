@@ -74,10 +74,10 @@ export const schema = yup.object({
   password: yup
     .string()
     .required('Password là bắt buộc')
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/,
-      'Password phải chứa ít nhất 1 kí tự in hoa, 1 kí tự in thường, 1 chữ số từ 0 đến 9'
-    )
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,}$/,
+    //   'Password phải chứa ít nhất 1 kí tự in hoa, 1 kí tự in thường, 1 chữ số từ 0 đến 9'
+    // )
     .min(5, 'Độ dài từ 5 đến 160 ký tự')
     .max(160, 'Độ dài từ 5 đến 160 ký tự'),
   confirm_password: yup
