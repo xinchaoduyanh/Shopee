@@ -4,7 +4,7 @@ import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from 'react-query'
-import { registerAccount } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import { omit } from 'lodash'
 import { isAxiosErrorUnprocessableEntity } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
@@ -18,7 +18,8 @@ import path from 'src/constants/path'
 //   password: string
 //   confirm_password: string
 // }
-type FormData = Schema
+type FormData = Pick<Schema, 'password' | 'email' | 'confirm_password'>
+const registerSchema = schema.pick(['password', 'email', 'confirm_password'])
 export default function Register() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
@@ -29,10 +30,10 @@ export default function Register() {
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(registerSchema)
   })
   const registerAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
   const onSubmit = handleSubmit((data) => {
     const body = omit(data, ['confirm_password'])

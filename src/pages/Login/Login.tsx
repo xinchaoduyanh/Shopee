@@ -4,17 +4,17 @@ import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from 'react-query'
-import { login } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import { isAxiosErrorUnprocessableEntity } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import Button from 'src/components/Button'
 
-type FormData = Omit<Schema, 'confirm_password'>
-const loginSchema = schema.omit(['confirm_password'])
+type FormData = Pick<Schema, 'password' | 'email'>
+const loginSchema = schema.pick(['password', 'email'])
 export default function Login() {
-  const { setIsAuthenticated,setProfile } = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -26,7 +26,7 @@ export default function Login() {
     resolver: yupResolver(loginSchema)
   })
   const loginAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => login(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.login(body)
   })
   const onSubmit = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
@@ -82,7 +82,7 @@ export default function Login() {
               <div className='mt-8'>
                 <Button
                   isLoading={loginAccountMutation.isLoading}
-                  disabled={loginAccountMutation.isLoading }
+                  disabled={loginAccountMutation.isLoading}
                   type='submit'
                   className='flex justify-center items-center w-full text-center py-4 px-2 uppercase bg-red-500 text-white text-sm hover:bg-red-600'
                 >
