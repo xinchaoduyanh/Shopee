@@ -4,7 +4,7 @@ import { QueryConfig } from '../../ProductList'
 interface Props {
   queryConfig: QueryConfig
 }
-export default function RatingStars({ queryConfig }: Props) {
+export default function   RatingStars({ queryConfig }: Props) {
   const navigate = useNavigate()
 
   const handleFilterStar = (rating_filter: number) => {

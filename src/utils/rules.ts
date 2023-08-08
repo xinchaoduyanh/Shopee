@@ -70,7 +70,7 @@ function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
     return Number(price_max) >= Number(price_min)
   }
   return price_min !== '' || price_max !== ''
-} 
+}
 
 export const schema = yup.object({
   email: yup
@@ -104,7 +104,8 @@ export const schema = yup.object({
     name: 'price not allow',
     message: 'Giá không phù hợp',
     test: testPriceMinMax
-  })
+  }),
+  name: yup.string().trim().required('Tên sản phẩm là bắt buộc')
 })
 const loginSchema = schema.omit(['confirm_password'])
 export type LoginSchema = yup.InferType<typeof loginSchema>

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import ProductRating from 'src/components/ProductRating/ProductRating'
+import path from 'src/constants/path'
 import { Product as ProducType } from 'src/types/product.type'
-import { formatCurrency, formatNumberToSocialStyle } from 'src/utils/utils'
+import { formatCurrency, formatNumberToSocialStyle, generateNameId } from 'src/utils/utils'
 
 interface ProductProps {
   product: ProducType
@@ -9,7 +10,7 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
   return (
-    <Link to='/'>
+    <Link to={`${path.home}${generateNameId({ name: product.name, id: product._id })}`}>
       <div className='overflow-hidden bg-white shadow rounded-sm hover:translate-y-[-0.0625rem] hover:shadow-md duration-100 transition-transform'>
         <div className='w-full pt-[100%] relative'>
           <img
