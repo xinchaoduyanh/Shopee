@@ -1,7 +1,7 @@
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 
 import Popover from '../Popover'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import authApi from 'src/apis/auth.api'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
@@ -21,6 +21,7 @@ const MAX_PURCHASE = 5
 
 export default function Header() {
   const queryConfig = useQueryConfig()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -35,6 +36,7 @@ export default function Header() {
     onSuccess: () => {
       setIsAuthenticated(false)
       setProfile(null)
+      queryClient.removeQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
     }
   })
   const handleLogout = () => {
@@ -42,9 +44,12 @@ export default function Header() {
   }
   //Khi chung ta chuyen trang thi header chi bi rerender chu khong bi unmount-mouting again
   //Tru truong hop logout roi nhay sang RegisterLayout roi nhay vao lai
+  console.log(isAuthenticated)
+
   const { data: purchasesInCartData } = useQuery({
-    queryKey: ['purchase', { status: purchasesStatus.inCart }],
-    queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
+    queryKey: ['purchases', { status: purchasesStatus.inCart }],
+    queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart }),
+    enabled: isAuthenticated
   })
   const purchaseInCart = purchasesInCartData?.data.data
   const onSubmitSearch = handleSubmit((data) => {
@@ -253,9 +258,11 @@ export default function Header() {
                     d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
                   />
                 </svg>
-                <span className='absolute top-[-5px] right-[-14px] shadow-sm py-[1px] px-[9px] text-xs rounded-full  bg-white text-orange'>
-                  {purchaseInCart?.length}
-                </span>
+                {purchaseInCart && (
+                  <span className='absolute top-[-5px] right-[-18px]  border-orange border-solid border-[2px] shadow-sm py-[1px] px-[9px] text-xs rounded-full  bg-white text-orange'>
+                    {purchaseInCart?.length}
+                  </span>
+                )}
               </Link>
             </Popover>
           </div>

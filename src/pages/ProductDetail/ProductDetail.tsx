@@ -47,7 +47,7 @@ export default function ProductDetail() {
   const addToCartMutation = useMutation(purchaseApi.addToCart)
   useEffect(() => {
     if (product && product.images.length > 0) {
-      setActiveImage(product.images[6])
+      setActiveImage(product.images[0])
     }
   }, [product])
 
@@ -91,7 +91,7 @@ export default function ProductDetail() {
       {
         onSuccess: (data) => {
           toast.success(data.data.message, { autoClose: 3000 })
-          queryCilent.invalidateQueries({ queryKey: ['purchase', { status: purchasesStatus.inCart }] })
+          queryCilent.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
         }
       }
     )
@@ -186,7 +186,7 @@ export default function ProductDetail() {
               <div className='mt-8 flex items-center'>
                 <div className='capitalize text-gray-500'>Số lượng</div>
                 <QuantityController
-                  onDescrease={handleBuyCount}
+                  onDecrease={handleBuyCount}
                   onIncrease={handleBuyCount}
                   onType={handleBuyCount}
                   value={buyCount}

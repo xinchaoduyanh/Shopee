@@ -1,21 +1,26 @@
+import { useState } from 'react'
 import InputNumber, { InputNumberProps } from '../InputNumber'
+
 interface Props extends InputNumberProps {
   max?: number
-  value?: number
   onIncrease?: (value: number) => void
-  onDescrease?: (value: number) => void
+  onDecrease?: (value: number) => void
   onType?: (value: number) => void
-  classnameWrapper?: string
+  onFocusOut?: (value: number) => void
+  classNameWrapper?: string
 }
+
 export default function QuantityController({
   max,
   onIncrease,
-  onDescrease,
+  onDecrease,
   onType,
+  onFocusOut,
+  classNameWrapper = 'ml-10',
   value,
-  classnameWrapper = 'ml-10 ',
   ...rest
 }: Props) {
+  const [localValue, setLocalValue] = useState<number>(Number(value || 0))
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let _value = Number(event.target.value)
     if (max !== undefined && _value > max) {
@@ -24,26 +29,36 @@ export default function QuantityController({
       _value = 1
     }
     onType && onType(_value)
+    setLocalValue(_value)
   }
+
   const increase = () => {
-    let _value = Number(value) + 1
+    let _value = Number(value || localValue) + 1
     if (max !== undefined && _value > max) {
       _value = max
     }
     onIncrease && onIncrease(_value)
+    setLocalValue(_value)
   }
-  const descrease = () => {
-    let _value = Number(value) - 1
+
+  const decrease = () => {
+    let _value = Number(value || localValue) - 1
     if (_value < 1) {
       _value = 1
     }
-    onDescrease && onDescrease(_value)
+    onDecrease && onDecrease(_value)
+    setLocalValue(_value)
   }
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
+    onFocusOut && onFocusOut(Number(event.target.value))
+  }
+
   return (
-    <div className={classnameWrapper + 'flex items-center'}>
+    <div className={'flex items-center ' + classNameWrapper}>
       <button
-        onClick={descrease}
-        className='flex h-8 w-8 rounded-l-sm items-center justify-center border border-gray-300 text-gray-600'
+        className='flex h-8 w-8 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600'
+        onClick={decrease}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -51,22 +66,23 @@ export default function QuantityController({
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='w-4 h-4'
+          className='h-4 w-4'
         >
           <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 12h-15' />
         </svg>
       </button>
       <InputNumber
         className=''
-        ClassNameError='hidden'
+        classNameError='hidden'
+        classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
         onChange={handleChange}
-        value={value}
-        ClassNameInput='h-8 w-14 border-t border-b border-gray-300 outline-none text-center'
+        onBlur={handleBlur}
+        value={value || localValue}
         {...rest}
       />
       <button
+        className='flex h-8 w-8 items-center justify-center rounded-r-sm border border-gray-300 text-gray-600'
         onClick={increase}
-        className='flex h-8 w-8 border rounded-r-sm items-center justify-center border-gray-300 text-gray-600'
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -74,7 +90,7 @@ export default function QuantityController({
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='w-4 h-4'
+          className='h-4 w-4'
         >
           <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
         </svg>
