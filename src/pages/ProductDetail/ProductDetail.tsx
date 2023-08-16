@@ -2,7 +2,7 @@ import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import ProductRating from 'src/components/ProductRating/ProductRating'
 // import useQueryConfig from 'src/hooks/useQueryConfig'
@@ -13,6 +13,7 @@ import QuantityController from 'src/components/QuantityController/QuantityContro
 import purchaseApi from 'src/apis/purchase.api'
 import { purchasesStatus } from 'src/constants/purchase'
 import { toast } from 'react-toastify'
+import path from 'src/constants/path'
 
 export default function ProductDetail() {
   const [buyCount, setBuyCount] = useState(1)
@@ -43,7 +44,7 @@ export default function ProductDetail() {
     enabled: Boolean(product),
     staleTime: 3 * 1000 * 60
   })
-  console.log(productsData)
+  const navigate = useNavigate()
   const addToCartMutation = useMutation(purchaseApi.addToCart)
   useEffect(() => {
     if (product && product.images.length > 0) {
@@ -95,6 +96,17 @@ export default function ProductDetail() {
         }
       }
     )
+  }
+  const buyNow = async () => {
+    const res = await addToCartMutation.mutateAsync({ buy_count: buyCount, product_id: product?._id as string })
+    const purchase = res.data.data
+    console.log(purchase)
+
+    navigate(path.cart, {
+      state: {
+        purchaseId: purchase._id
+      }
+    })
   }
   if (!product) return null
   return (
@@ -224,8 +236,11 @@ export default function ProductDetail() {
                   </svg>
                   Thêm vào giỏ hàng
                 </button>
-                <button className='ml-4 h-12 capitalize px-5 items-center cursor-pointer shadow-sm bg-orange text-white hover:bg-orange/70'>
-                  Mua ngay{' '}
+                <button
+                  onClick={buyNow}
+                  className='ml-4 h-12 capitalize px-5 items-center cursor-pointer shadow-sm bg-orange text-white hover:bg-orange/70'
+                >
+                  Mua ngay
                 </button>
               </div>
             </div>
