@@ -21,7 +21,7 @@ export default function Header() {
 
   //Khi chung ta chuyen trang thi header chi bi rerender chu khong bi unmount-mouting again
   //Tru truong hop logout roi nhay sang RegisterLayout roi nhay vao lai
-  console.log(isAuthenticated)
+  // console.log(isAuthenticated)
 
   const { data: purchasesInCartData } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],

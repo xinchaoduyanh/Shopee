@@ -8,7 +8,7 @@ import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
 
 import { purchasesStatus } from 'src/constants/purchase'
-
+import { getAvatarURL } from 'src/utils/utils'
 export default function NavHeader() {
   const queryClient = useQueryClient()
 
@@ -27,7 +27,7 @@ export default function NavHeader() {
   }
   //Khi chung ta chuyen trang thi header chi bi rerender chu khong bi unmount-mouting again
   //Tru truong hop logout roi nhay sang RegisterLayout roi nhay vao lai
-  console.log(isAuthenticated)
+  // console.log(isAuthenticated)
 
   return (
     <div className='flex justify-end'>
@@ -92,11 +92,7 @@ export default function NavHeader() {
           className='flex item-center py-1 hover:text-white/70 cursor-pointer text-white ml-6'
         >
           <div className='w-6 h-6 mr-2 flex-shrink-0'>
-            <img
-              src='https://static-images.vnncdn.net/files/publish/2023/6/29/jennie-1-1834.jpg'
-              alt='avatar'
-              className='w-full h-full rounded-full object-cover'
-            />
+            <img src={getAvatarURL(profile?.avatar)} alt='avatar' className='w-full h-full rounded-full object-cover' />
           </div>
           <div className=''>{profile?.email}</div>
         </Popover>

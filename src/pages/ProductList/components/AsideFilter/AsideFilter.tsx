@@ -139,8 +139,8 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
                       field.onChange(event)
                       trigger('price_max')
                     }}
-                    ClassNameError='hidden'
-                    ClassNameInput='p-1 py-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
+                    classNameError='hidden'
+                    classNameInput='p-1 py-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                   />
                 )
               }}
@@ -161,8 +161,8 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
                       field.onChange(event)
                       trigger('price_min')
                     }}
-                    ClassNameError='hidden'
-                    ClassNameInput='p-1 py-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
+                    classNameError='hidden'
+                    classNameInput='p-1 py-1 w-full outline-none border border-gray-300 focus:border-gray-500 rounded-sm focus:shadow-sm'
                   />
                 )
               }}
