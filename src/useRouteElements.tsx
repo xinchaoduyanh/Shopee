@@ -15,6 +15,9 @@ import UserLayout from './pages/User/Layouts/UserLayout/UserLayout'
 import ChangePassword from './pages/User/pages/ChangePassword'
 import HistoryPurchase from './pages/User/pages/HistoryPurchase'
 import Profile from './pages/User/pages/Profile'
+import Coins from './pages/User/Components/Coins'
+import Notifications from './pages/User/Components/Notifications/Notifications'
+import Vouchers from './pages/User/Components/Vouchers'
 
 function ProtectRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -82,6 +85,18 @@ export default function useRouteElements() {
             {
               path: path.historyPurchase,
               element: <HistoryPurchase />
+            },
+            {
+              path: path.coins,
+              element: <Coins />
+            },
+            {
+              path: path.notification,
+              element: <Notifications />
+            },
+            {
+              path: path.vouchers,
+              element: <Vouchers />
             }
           ]
         }

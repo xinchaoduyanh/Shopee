@@ -89,7 +89,7 @@ export default function UserSideNav() {
         Đơn mua
       </NavLink>
       <NavLink
-        to={path.changePassword}
+        to={path.notification}
         className={({ isActive }) =>
           classNames(' flex items-center capitalize transition-colors mt-8', {
             'text-orange': isActive,
@@ -103,7 +103,7 @@ export default function UserSideNav() {
         Thông báo
       </NavLink>
       <NavLink
-        to={path.changePassword}
+        to={path.vouchers}
         className={({ isActive }) =>
           classNames(' flex items-center capitalize transition-colors mt-8', {
             'text-orange': isActive,
@@ -117,7 +117,7 @@ export default function UserSideNav() {
         Kho voucher
       </NavLink>
       <NavLink
-        to={path.home}
+        to={path.coins}
         className={({ isActive }) =>
           classNames(' flex items-center capitalize transition-colors mt-8', {
             'text-orange': isActive,
