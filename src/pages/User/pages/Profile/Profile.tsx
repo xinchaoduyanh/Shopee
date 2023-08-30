@@ -81,7 +81,7 @@ function Profile() {
       avatar: '',
       date_of_birth: new Date(1900, 0, 1)
     },
-    resolver: yupResolver(profileSchema)
+    resolver: yupResolver<FormData>(profileSchema)
   })
   const {
     register,
@@ -154,7 +154,7 @@ function Profile() {
                 <div className='pt-3 text-gray-700'>{profile?.email}</div>
               </div>
             </div>
-            <Info {...methods} />
+            <Info />
             <div className='flex flex-wrap mt-2 sm:flex-row'>
               <div className='truncate sm:w-[20%] pt-3 sm:text-right capitalize'>Địa chỉ</div>
               <div className='truncate sm:w-[80%] sm:pl-5'>

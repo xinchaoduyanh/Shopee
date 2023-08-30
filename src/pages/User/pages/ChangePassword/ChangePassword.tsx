@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { toast } from 'react-toastify'
@@ -25,7 +25,7 @@ export default function ChangePassword() {
       new_password: '',
       new_confirm_password: ''
     },
-    resolver: yupResolver(passwordSchema)
+    resolver: yupResolver<FormData>(passwordSchema)
   })
   const updateProfileMutaion = useMutation(userApi.updateProfile)
   console.log(watch())

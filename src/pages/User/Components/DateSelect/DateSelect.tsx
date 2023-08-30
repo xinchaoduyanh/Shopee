@@ -1,4 +1,4 @@
-import { range } from 'lodash'
+import range from 'lodash/range'
 import { useEffect, useState } from 'react'
 
 interface DateSelectProps {
@@ -25,7 +25,6 @@ export default function DateSelect({ onChange, errorMessage, value }: DateSelect
     onChange && onChange(new Date(newDate.year, newDate.month, newDate.date))
   }
   // console.log('ren');
-  
   useEffect(() => {
     if (value) {
       setDate({

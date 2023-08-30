@@ -10,8 +10,10 @@ import { schema, Schema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { NoUndefinedField } from 'src/types/utils.type'
 import RatingStars from '../RatingStars'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { ObjectSchema } from 'yup'
+import { useTranslation } from 'react-i18next'
 interface AsideFilterProps {
   categories: Category[]
   queryConfig: QueryConfig
@@ -20,6 +22,7 @@ type FormData = NoUndefinedField<Pick<Schema, 'price_max' | 'price_min'>>
 const priceSchema = schema.pick(['price_max', 'price_min'])
 
 export default function AsideFilter({ categories, queryConfig }: AsideFilterProps) {
+  const { t } = useTranslation(['home'])
   const { category } = queryConfig
   const {
     control,
@@ -32,7 +35,7 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
       price_max: '',
       price_min: ''
     },
-    resolver: yupResolver(priceSchema),
+    resolver: yupResolver<FormData>(priceSchema as ObjectSchema<FormData>),
     shouldFocusError: false
   })
   console.log(errors)
@@ -74,7 +77,7 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
             </g>
           </g>
         </svg>
-        Tất cả danh mục
+        {t('aside filter.all categories')}
       </Link>
       <div className='bg-gray-500 h-[1px] my-4'></div>
       <ul>
@@ -118,7 +121,7 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
             ></polyline>
           </g>
         </svg>
-        Bộ lọc tìm kiếm
+        {t('aside filter.all categories')}
       </Link>
       <div className='bg-gray-500 h-[1px] my-4'></div>
       <div className='my-5'>

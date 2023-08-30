@@ -38,18 +38,3 @@ function InputV2(props: UseControllerProps & InputNumberProps) {
   )
 }
 export default InputV2
-
-type Gen<TFunc> = {
-  getName: TFunc
-}
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Hexa<TFunc extends () => string, TLastName extends ReturnType<TFunc>>(props: {
-  person: Gen<TFunc>
-  last_name: TLastName
-}) {
-  return null
-}
-const handleName: () => 'duy anh ne' = () => 'duy anh ne'
-export function App() {
-  return <Hexa person={{ getName: handleName }} last_name='duy anh ne' />
-}

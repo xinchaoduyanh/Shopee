@@ -4,7 +4,7 @@ import { ProductListConfig } from 'src/types/product.type'
 import { QueryConfig } from '../../ProductList'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 
 interface SortProductListProps {
   pageSize: number

@@ -6,6 +6,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { LocalStorageEventTarget } from './utils/auth'
 import { AppContext } from './contexts/app.context'
+import 'src/i18n/i18n'
+
 function App() {
   const routeElements = useRouteElements()
   const { reset } = useContext(AppContext)
