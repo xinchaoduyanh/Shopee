@@ -1,7 +1,14 @@
 {
   "aside filter": {
     "all categories": "Tất cả danh mục",
-    "filter search": "Bộ lọc tìm kiếm"
+    "filter search": "Bộ lọc tìm kiếm",
+    "price range" : "Khoảng giá",
+    "min" :"Từ",
+    "max" :"Đến",
+    "Apply":"Áp dụng",
+    "Rating": "Đánh giá",
+    "Up": "Trở lên",
+    "Clear": "Xóa tất cả"
   },
   "languages": {
     "English": "Tiếng Anh",

@@ -1,7 +1,14 @@
 {
   "aside filter" : {
     "all categories" : "All categories",
-    "filter search" : "Filter search"
+    "filter search" : "Filter search",
+    "price range" : "Price range",
+    "min" :"Min",
+    "max" :"Max",
+    "Apply":"Apply",
+    "Rating": "Rating",
+    "Up": "Up",
+    "Clear": "Clear All"
   },
   "languages" : {
       "English" : "English",

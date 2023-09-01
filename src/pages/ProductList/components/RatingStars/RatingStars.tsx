@@ -1,6 +1,7 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from '../../ProductList'
+import { useTranslation } from 'react-i18next'
 interface Props {
   queryConfig: QueryConfig
 }
@@ -16,7 +17,7 @@ export default function   RatingStars({ queryConfig }: Props) {
       }).toString()
     })
   }
-
+  const {t} = useTranslation(['home'])
   return (
     <ul className='my-3'>
       {Array(5)
@@ -78,7 +79,7 @@ export default function   RatingStars({ queryConfig }: Props) {
                     />
                   </svg>
                 ))}
-              <span>{indexRow !== 0 && ' Trở lên'}</span>
+              <span>{indexRow !== 0 && t('aside filter.Up') }</span>
             </div>
           </li>
         ))}

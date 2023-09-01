@@ -14,6 +14,7 @@ import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { ObjectSchema } from 'yup'
 import { useTranslation } from 'react-i18next'
+import { upperCase } from 'lodash'
 interface AsideFilterProps {
   categories: Category[]
   queryConfig: QueryConfig
@@ -125,7 +126,7 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
       </Link>
       <div className='bg-gray-500 h-[1px] my-4'></div>
       <div className='my-5'>
-        <div className=''>Khoảng giá</div>
+        <div className=''>{t('aside filter.price range')}</div>
         <form className='mt-2' onSubmit={onSubmit}>
           <div className='flex items-start'>
             <Controller
@@ -136,7 +137,7 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
                   <InputNumber
                     type='text'
                     className='grow'
-                    placeholder='₫ TỪ'
+                    placeholder={`₫  ${upperCase(t('aside filter.min'))}`}
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)
@@ -158,7 +159,7 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
                   <InputNumber
                     type='text'
                     className='grow'
-                    placeholder='₫ ĐẾN'
+                    placeholder={`₫  ${upperCase(t('aside filter.max'))}`}
                     {...field}
                     onChange={(event) => {
                       field.onChange(event)
@@ -178,14 +179,14 @@ export default function AsideFilter({ categories, queryConfig }: AsideFilterProp
         </form>
       </div>
       <div className='bg-gray-500 h-[1px] my-4'></div>
-      <div className='text-sm'>Đánh giá</div>
+      <div className='text-sm'>{t('aside filter.Rating')}</div>
       <RatingStars queryConfig={queryConfig} />
       <div className='bg-gray-500 h-[1px] my-4'></div>
       <Button
         onClick={handleRemove}
         className='w-full py-2 px-2 uppercase bg-orange text-white text-sm hover:opacity-90 justify-center flex'
       >
-        Xóa tất cả
+        {t('aside filter.Clear')}
       </Button>
     </div>
   )
