@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 interface Props {
   queryConfig: QueryConfig
 }
-export default function   RatingStars({ queryConfig }: Props) {
+export default function RatingStars({ queryConfig }: Props) {
   const navigate = useNavigate()
 
   const handleFilterStar = (rating_filter: number) => {
@@ -17,7 +17,7 @@ export default function   RatingStars({ queryConfig }: Props) {
       }).toString()
     })
   }
-  const {t} = useTranslation(['home'])
+  const { t } = useTranslation(['home'])
   return (
     <ul className='my-3'>
       {Array(5)
@@ -79,7 +79,7 @@ export default function   RatingStars({ queryConfig }: Props) {
                     />
                   </svg>
                 ))}
-              <span>{indexRow !== 0 && t('aside filter.Up') }</span>
+              <span>{indexRow !== 0 && t('aside filter.Up')}</span>
             </div>
           </li>
         ))}
