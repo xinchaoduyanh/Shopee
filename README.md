@@ -1,27 +1,40 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🌸Project Description:
 
-Currently, two official plugins are available:
+This project is a clone of the user interface of the Shopee e-commerce platform.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+⭐Technologies Used:
 
-## Expanding the ESLint configuration
+REST API
+ReactJS
+TypeScript
+React Hook Form
+Yup
+React Query
+Vite
+Vitest
+Storybook
+ESLint
+Prettier
+React Helmet
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+🔑Key Features:
 
-- Configure the top-level `parserOptions` property like this:
+User authentication management with JWT, including automatic refresh token handling.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Form validation using Yup and React Hook Form.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Synchronized pagination, filtering, and product search with URL for easy sharing of results between devices.
+
+Asynchronous state management with React Query.
+
+Code splitting for optimized build file sizes and improved performance.
+
+SEO optimization with React Helmet.
+
+Separation of private and public routes.
+
+Unit testing.
+
+Component management with Storybook.
